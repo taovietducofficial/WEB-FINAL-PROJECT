@@ -1,0 +1,37 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class JDBCUtil {
+    private static final String URL = "jdbc:mysql://localhost:3306/ShoeStoreManagement";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123"; // Thay bằng mật khẩu của bạn
+    private static Connection connection = null; // Duy trì kết nối static
+
+    // Phương thức để lấy kết nối
+    public static Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Kết nối thành công!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    // Phương thức đóng kết nối
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null; // Đặt connection về null
+                System.out.println("Đóng kết nối thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

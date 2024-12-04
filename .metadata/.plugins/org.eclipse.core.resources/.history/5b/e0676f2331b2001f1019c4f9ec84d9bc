@@ -1,0 +1,70 @@
+package model;
+
+public class Offline_order {
+    private int orderId;
+    private String orderDate;
+    private double totalAmount;
+    private String paymentMethod;
+    private int customerId;
+    private int employeeId;
+
+    public Offline_order() {
+    }
+
+    public Offline_order(int orderId, String orderDate, double totalAmount, String paymentMethod, int customerId, int employeeId) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+}

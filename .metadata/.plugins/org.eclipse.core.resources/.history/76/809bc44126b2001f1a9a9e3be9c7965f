@@ -1,0 +1,49 @@
+package view;
+
+import controller.CustomerController;
+import model.Customer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+public class CustomerView extends JFrame {
+    private final CustomerController controller;
+
+    public CustomerView() {
+        controller = new CustomerController();
+        setTitle("Customer Management");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Hiển thị cửa sổ ở giữa màn hình
+        initUI();
+    }
+
+    private void initUI() {
+        List<Customer> customers = controller.getAllCustomers();
+        String[] columnNames = {"ID", "Name", "Address", "Phone", "Email", "Purchase History"};
+        String[][] data = new String[customers.size()][6];
+
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            data[i][0] = String.valueOf(customer.getId());
+            data[i][1] = customer.getName();
+            data[i][2] = customer.getAddress();
+            data[i][3] = customer.getPhone();
+            data[i][4] = customer.getEmail();
+            data[i][5] = customer.getPurchaseHistory();
+        }
+
+        JTable table = new JTable(data, columnNames);
+        table.setFillsViewportHeight(true); // Bảng lấp đầy chiều cao khung nhìn
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            CustomerView view = new CustomerView();
+            view.setVisible(true);
+        });
+    }
+}

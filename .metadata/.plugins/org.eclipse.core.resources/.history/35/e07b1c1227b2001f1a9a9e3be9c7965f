@@ -1,0 +1,61 @@
+package view;
+
+import controller.CustomerController;
+import model.Customer;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class CustomerView {
+    private final CustomerController controller;
+
+    public CustomerView() {
+        controller = new CustomerController();
+    }
+
+    private void displayMenu() {
+        System.out.println("=== Customer Management ===");
+        System.out.println("1. View All Customers");
+        System.out.println("2. Exit");
+        System.out.print("Choose an option: ");
+    }
+
+    private void displayAllCustomers() {
+        List<Customer> customers = controller.getAllCustomers();
+        System.out.printf("%-5s %-20s %-30s %-15s %-25s %-20s%n", "ID", "Name", "Address", "Phone", "Email", "Purchase History");
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+        for (Customer customer : customers) {
+            System.out.printf("%-5d %-20s %-30s %-15s %-25s %-20s%n",
+                    customer.getId(),
+                    customer.getName(),
+                    customer.getAddress(),
+                    customer.getPhone(),
+                    customer.getEmail(),
+                    customer.getPurchaseHistory());
+        }
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            switch (choice) {
+                case 1:
+                    displayAllCustomers();
+                    break;
+                case 2:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        CustomerView view = new CustomerView();
+        view.run();
+    }
+}

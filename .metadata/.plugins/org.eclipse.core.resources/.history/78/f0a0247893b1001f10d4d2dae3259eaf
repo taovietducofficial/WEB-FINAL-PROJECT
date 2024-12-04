@@ -1,0 +1,37 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import database.JDBCUtil;
+import model.Customer;
+
+public class CustomerDAO {
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        String query = "SELECT * FROM CUSTOMER";
+
+        try (Connection connection = JDBCUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Customer customer = new Customer(
+                    resultSet.getInt("MaKH"),
+                    resultSet.getString("TenKH"),
+                    resultSet.getString("DiaChi"),
+                    resultSet.getString("SDT"),
+                    resultSet.getString("Email"),
+                    resultSet.getString("LichSuMuaHang")
+                );
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+}

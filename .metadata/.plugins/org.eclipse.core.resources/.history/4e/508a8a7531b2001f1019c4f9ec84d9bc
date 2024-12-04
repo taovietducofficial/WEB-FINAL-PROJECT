@@ -1,0 +1,75 @@
+package dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import model.Offline_order;
+
+public class Offline_orderDAO {
+    
+    // Lấy tất cả đơn hàng offline
+    public List<Offline_order> getAllOfflineOrders() throws SQLException {
+        List<Offline_order> orders = new ArrayList<>();
+        String query = "SELECT * FROM OFFLINE_ORDER";
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                orders.add(new Offline_order(
+                    resultSet.getInt("MaDonHang"),
+                    resultSet.getDate("NgayDatHang"),
+                    resultSet.getDouble("TongTien"),
+                    resultSet.getString("HinhThucThanhToan"),
+                    resultSet.getInt("MaKH"),
+                    resultSet.getInt("MaNV")
+                ));
+            }
+        }
+        return orders;
+    }
+
+    // Thêm đơn hàng mới
+    public boolean addOfflineOrder(Offline_order order) throws SQLException {
+        String query = "INSERT INTO OFFLINE_ORDER (NgayDatHang, TongTien, HinhThucThanhToan, MaKH, MaNV) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDate(1, new java.sql.Date(order.getNgayDatHang().getTime()));
+            preparedStatement.setDouble(2, order.getTongTien());
+            preparedStatement.setString(3, order.getHinhThucThanhToan());
+            preparedStatement.setInt(4, order.getMaKH());
+            preparedStatement.setInt(5, order.getMaNV());
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    // Cập nhật đơn hàng
+    public boolean updateOfflineOrder(Offline_order order) throws SQLException {
+        String query = "UPDATE OFFLINE_ORDER SET NgayDatHang = ?, TongTien = ?, HinhThucThanhToan = ?, MaKH = ?, MaNV = ? WHERE MaDonHang = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDate(1, new java.sql.Date(order.getNgayDatHang().getTime()));
+            preparedStatement.setDouble(2, order.getTongTien());
+            preparedStatement.setString(3, order.getHinhThucThanhToan());
+            preparedStatement.setInt(4, order.getMaKH());
+            preparedStatement.setInt(5, order.getMaNV());
+            preparedStatement.setInt(6, order.getMaDonHang());
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    // Xóa đơn hàng
+    public boolean deleteOfflineOrder(int maDonHang) throws SQLException {
+        String query = "DELETE FROM OFFLINE_ORDER WHERE MaDonHang = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, maDonHang);
+            
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+}

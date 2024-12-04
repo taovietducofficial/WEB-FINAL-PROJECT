@@ -1,0 +1,17 @@
+package run;
+
+import java.util.List;
+
+import dao.CustomerDAO;
+import model.Customer;
+
+public class Customer{
+    public static void main(String[] args) {
+        run.Customer customerDAO = new run.Customer();
+        List<Customer> customer = customer.getAllCustomer();
+
+        for (Customer customer : customer) {
+            System.out.println(customer);
+        }
+    }
+}

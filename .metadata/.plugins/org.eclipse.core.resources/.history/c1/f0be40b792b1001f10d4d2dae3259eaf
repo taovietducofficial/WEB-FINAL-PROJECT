@@ -1,0 +1,75 @@
+package model;
+
+public class Customer {
+    private int maKH;
+    private String tenKH;
+    private String diaChi;
+    private String sdt;
+    private String email;
+    private String lichSuMuaHang;
+
+    // Constructor
+    public Customer(int maKH, String tenKH, String diaChi, String sdt, String email, String lichSuMuaHang) {
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.email = email;
+        this.lichSuMuaHang = lichSuMuaHang;
+    }
+
+    // Getters and Setters
+    public int getMaKH() {
+        return maKH;
+    }
+
+    public void setMaKH(int maKH) {
+        this.maKH = maKH;
+    }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLichSuMuaHang() {
+        return lichSuMuaHang;
+    }
+
+    public void setLichSuMuaHang(String lichSuMuaHang) {
+        this.lichSuMuaHang = lichSuMuaHang;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer [maKH=" + maKH + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email="
+                + email + ", lichSuMuaHang=" + lichSuMuaHang + "]";
+    }
+}

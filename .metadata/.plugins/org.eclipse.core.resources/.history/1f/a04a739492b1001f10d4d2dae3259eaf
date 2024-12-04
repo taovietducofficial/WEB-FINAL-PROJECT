@@ -1,0 +1,50 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class JDBCUtil {
+
+    // Thông tin kết nối cơ bản
+    private static final String URL = "jdbc:mysql://localhost:3306/ShoeStoreManagement";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123"
+    		+ "";
+
+    /**
+     * Phương thức để lấy kết nối đến cơ sở dữ liệu
+     */
+    public static Connection getConnection() {
+        Connection connection = null;
+        try {
+            // Đăng ký driver MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Kết nối đến cơ sở dữ liệu
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Kết nối thành công!");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Lỗi: Không tìm thấy Driver!");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Lỗi: Không thể kết nối đến cơ sở dữ liệu!");
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    /**
+     * Phương thức để đóng kết nối
+     */
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("Đóng kết nối thành công!");
+            } catch (SQLException e) {
+                System.err.println("Lỗi: Không thể đóng kết nối!");
+                e.printStackTrace();
+            }
+        }
+    }
+}

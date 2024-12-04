@@ -1,0 +1,23 @@
+package controller;
+
+import dao.CustomerDAO;
+import model.Customer;
+
+import java.util.List;
+
+public class CustomerController {
+    private CustomerDAO customerDAO;
+
+    public CustomerController() {
+        this.customerDAO = new CustomerDAO();
+    }
+
+    public List<Customer> getAllCustomers() {
+        try {
+            return customerDAO.getAllCustomers();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
